@@ -5,7 +5,8 @@ import 'package:lucide_icons/lucide_icons.dart';
 Widget DashboardCard(BuildContext context, {
   required String label, 
   required IconData icon,
-  required Color color
+  required Color color,
+  required Function() onTap
 }){
   return Container(
     height: 140.dm,
@@ -24,30 +25,37 @@ Widget DashboardCard(BuildContext context, {
           ),
         ),
 
-        Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            width: 136.dm,
-            height: 140.dm,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.dm)
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(10.dm),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(icon, color: color,size: 40.dm,),
-                  SizedBox(height: 20.h,),
-                  Text(label, style: TextStyle(
-                    color: Color.fromRGBO(0,73, 124, 1), 
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.sp,
-                    fontFamily: "Lato"
-                  ),),
-                ],
+        Material(
+          color: Colors.transparent,
+          child: InkWell(
+            splashColor: Colors.grey,
+            onTap: onTap,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                width: 136.dm,
+                height: 140.dm,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10.dm)
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(10.dm),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(icon, color: color,size: 40.dm,),
+                      SizedBox(height: 20.h,),
+                      Text(label, style: TextStyle(
+                        color: Color.fromRGBO(0,73, 124, 1), 
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16.sp,
+                        fontFamily: "Lato"
+                      ),),
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
