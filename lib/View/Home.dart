@@ -6,6 +6,7 @@ import 'package:smartgrid/Partials/Card/DashboardCard.dart';
 import 'package:smartgrid/View/ListEnergy.dart';
 import 'package:smartgrid/View/ListPLN.dart';
 import 'package:smartgrid/View/Pengaturan.dart';
+import 'package:smartgrid/View/PengeluaranBiaya.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -128,7 +129,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             label: "Pengeluaran Keuangan",
                             icon: LucideIcons.badgeDollarSign,
                             color: Colors.green,
-                            onTap: () {}),
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>PengeluaranBiaya()));
+                            }),
                       ),
                       Padding(
                         padding: EdgeInsets.all(5.dm),
