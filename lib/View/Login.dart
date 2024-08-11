@@ -5,6 +5,7 @@ import 'package:smartgrid/Partials/Button/BaseButton.dart';
 import 'package:smartgrid/Partials/Button/GoogleButton.dart';
 import 'package:smartgrid/Partials/Form/formPassword.dart';
 import 'package:smartgrid/View/Home.dart';
+import 'package:smartgrid/View/LupaPass.dart';
 import 'package:smartgrid/View/Register.dart';
 
 import '../Partials/Form/formText.dart';
@@ -65,7 +66,7 @@ class _LoginState extends State<Login> {
                 FormText(context, controller: emailController, label: "EMAIL"),
               ],
             ),
-              SizedBox(
+            SizedBox(
               height: 10.h,
             ),
             //field password
@@ -90,7 +91,7 @@ class _LoginState extends State<Login> {
             SizedBox(
               height: 40.h,
             ),
-      
+
             /*
               tombol untuk sign in
             */
@@ -104,7 +105,8 @@ class _LoginState extends State<Login> {
               /*
                     function untuk login di sini
                   */
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Home()));
             }),
             SizedBox(
               height: 20.h,
@@ -168,8 +170,9 @@ class _LoginState extends State<Login> {
                       fontWeight: FontWeight.bold),
                 ),
                 InkWell(
-                  onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> Register()));
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Register()));
                   },
                   child: Text(
                     "Daftar",
@@ -183,18 +186,24 @@ class _LoginState extends State<Login> {
                 ),
               ],
             ),
-            SizedBox(height: 10.h,),
-            Text(
-                  "Lupa password?",
-                  style: TextStyle(
+            SizedBox(
+              height: 10.h,
+            ),
+            InkWell(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => LupaPass()));
+              },
+              child: Text(
+                "Lupa password?",
+                style: TextStyle(
                     fontFamily: "Lato",
                     color: Color.fromRGBO(2, 138, 234, 1),
                     fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline
-                  ),
-                  
-                ),
+                    decoration: TextDecoration.underline),
+              ),
+            ),
           ],
         ),
       ),
