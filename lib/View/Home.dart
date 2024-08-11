@@ -5,6 +5,7 @@ import 'package:smartgrid/Partials/Card/CardMode.dart';
 import 'package:smartgrid/Partials/Card/DashboardCard.dart';
 import 'package:smartgrid/View/ListEnergy.dart';
 import 'package:smartgrid/View/ListPLN.dart';
+import 'package:smartgrid/View/Pengaturan.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -68,7 +69,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                     ],
                   ),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Pengaturan()));
+                      },
                       icon: Icon(
                         LucideIcons.settings,
                         color: Color.fromRGBO(0, 73, 124, 1),
