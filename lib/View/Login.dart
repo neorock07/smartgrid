@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:smartgrid/Partials/Button/BaseButton.dart';
 import 'package:smartgrid/Partials/Button/GoogleButton.dart';
 import 'package:smartgrid/Partials/Form/formPassword.dart';
+import 'package:smartgrid/View/Home.dart';
 import 'package:smartgrid/View/Register.dart';
 
 import '../Partials/Form/formText.dart';
@@ -103,6 +104,7 @@ class _LoginState extends State<Login> {
               /*
                     function untuk login di sini
                   */
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
             }),
             SizedBox(
               height: 20.h,
