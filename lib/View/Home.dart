@@ -7,6 +7,7 @@ import 'package:smartgrid/View/ListEnergy.dart';
 import 'package:smartgrid/View/ListPLN.dart';
 import 'package:smartgrid/View/Pengaturan.dart';
 import 'package:smartgrid/View/PengeluaranBiaya.dart';
+import 'package:smartgrid/View/PenggunaanDaya.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -121,7 +122,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                             label: "Penggunaan Daya Listrik",
                             icon: Icons.electric_bolt,
                             color: Colors.amber,
-                            onTap: () {}),
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>PenggunaanDaya()));
+
+                            }),
                       ),
                       Padding(
                         padding: EdgeInsets.all(5.dm),

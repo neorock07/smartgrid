@@ -9,6 +9,8 @@ Widget PercentBar(BuildContext context, {
   return CircularPercentIndicator(
     radius: 90.dm,
     curve: Curves.easeIn,
+    animation: true,
+    animationDuration: 1000,
     circularStrokeCap: CircularStrokeCap.round,
     percent: percent,
     lineWidth: 20.dm,
