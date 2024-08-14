@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:http/http.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:smartgrid/Model/ChartData.dart';
 import 'package:smartgrid/Model/RiwayatModel.dart';
@@ -15,7 +18,7 @@ class PenggunaanDaya extends StatefulWidget {
 }
 
 class _PenggunaanDayaState extends State<PenggunaanDaya> {
-  static const _pageSize = 20;
+  final _numberOfPostsPerRequest = 10;
 
   final PagingController<int, RiwayatModel> _pagingController =
       PagingController(firstPageKey: 0);
@@ -31,10 +34,41 @@ class _PenggunaanDayaState extends State<PenggunaanDaya> {
 
   @override
   void initState() {
-    super.initState();
     _pagingController.addPageRequestListener((pageKey) {
-      _pagingController.appendPage(data_fake, pageKey);
+      _fetchPage(pageKey);
     });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pagingController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _fetchPage(int pageKey) async {
+    try {
+      final response = await get(Uri.parse(
+          "https://jsonplaceholder.typicode.com/posts?_page=$pageKey&_limit=$_numberOfPostsPerRequest"));
+      List responseList = json.decode(response.body);
+      List<RiwayatModel> postList = data_fake
+          .map((data) => RiwayatModel(
+              name1: data.name1,
+              name2: data.name2,
+              value1: data.value1,
+              value2: data.value2))
+          .toList();
+      final isLastPage = postList.length < _numberOfPostsPerRequest;
+      if (isLastPage) {
+        _pagingController.appendLastPage(postList);
+      } else {
+        final nextPageKey = pageKey + 1;
+        _pagingController.appendPage(postList, nextPageKey);
+      }
+    } catch (e) {
+      print("error --> $e");
+      _pagingController.error = e;
+    }
   }
 
   List<Color> gradientColors = [
@@ -284,10 +318,8 @@ class _PenggunaanDayaState extends State<PenggunaanDaya> {
               return Container(
                   height: MediaQuery.of(context).size.height * 0.4,
                   width: MediaQuery.of(context).size.width,
-                  color: Colors.red, // Adjust height as needed
-                  child: ListView(
-                    controller: scrollController,
-                    children: [
+                  color: Colors.white, // Adjust height as needed
+                  child: ListView(controller: scrollController, children: [
                     Center(
                       child: BaseCard(
                         context,
@@ -392,7 +424,48 @@ class _PenggunaanDayaState extends State<PenggunaanDaya> {
                         ),
                       ),
                     ),
-                    
+                    Container(
+                      height: 150.h,
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: EdgeInsets.all(10.dm),
+                        child: RefreshIndicator(
+                          onRefresh: () =>
+                              Future.sync(() => _pagingController.refresh()),
+                          child: Flexible(
+                            child: PagedListView<int, RiwayatModel>(
+                              pagingController: _pagingController,
+                              shrinkWrap:true,
+                              builderDelegate:
+                                  PagedChildBuilderDelegate<RiwayatModel>(
+                                itemBuilder: (context, item, index) => Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: ListTile(
+                                    leading: Column(
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(item.name1.toString()),
+                                            Text(item.value1.toString()),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(item.name2.toString()),
+                                            Text(item.value2.toString()),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    trailing: Text(item.date.toString()),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ]));
             }))
       ]),
