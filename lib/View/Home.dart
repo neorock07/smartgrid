@@ -48,7 +48,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   const CircleAvatar(
-                    backgroundImage: AssetImage("assets/images/man_21.webp"),
+                    backgroundImage: AssetImage("assets/images/avatar.png"),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
