@@ -38,11 +38,17 @@ Widget LineChartWidget(BuildContext context){
             getTitlesWidget: (value, meta) {
               int index = value.toInt();
               if(index >= 0 && index < arr_data!.length){
-                return Text(arr_data![index].date, style: TextStyle(
-                  color: Colors.black, 
-                  fontSize: 8.sp,
-                  fontFamily: "Lato"
-                ),);
+                return Transform.rotate(
+                  angle: -1.5, 
+                  child:Padding(
+                    padding: EdgeInsets.only(right:15.h),
+                    child: Text(arr_data![index].date, style: TextStyle(
+                    color: Colors.black, 
+                    fontSize: 8.sp,
+                    fontFamily: "Lato"
+                                  ),),
+                  )
+                ); 
               }
               return const Text('');
             },
