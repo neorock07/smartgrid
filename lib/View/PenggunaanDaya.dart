@@ -6,9 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:smartgrid/Model/ChartData.dart';
+import 'package:smartgrid/Model/ChartData.dart';
 import 'package:smartgrid/Model/RiwayatModel.dart';
 import 'package:smartgrid/Partials/Button/BackButton.dart';
 import 'package:smartgrid/Partials/Card/BaseCard.dart';
+import 'package:smartgrid/Partials/Chart/LineChartWidget.dart';
 
 class PenggunaanDaya extends StatefulWidget {
   const PenggunaanDaya({Key? key}) : super(key: key);
@@ -22,6 +24,13 @@ class _PenggunaanDayaState extends State<PenggunaanDaya> {
 
   final PagingController<int, RiwayatModel> _pagingController =
       PagingController(firstPageKey: 0);
+
+  LineWidget line_widget = LineWidget(arr_data: [
+    ChartData("2024-08-13", 20, 21),
+    ChartData("2024-08-13", 25, 18),
+    ChartData("2024-08-13", 27, 15),
+    ChartData("2024-08-13", 30, 17),
+  ]);
 
   List<RiwayatModel> data_fake = [
     RiwayatModel(
@@ -257,6 +266,54 @@ class _PenggunaanDayaState extends State<PenggunaanDaya> {
                 ),
               ],
             ),
+            Padding(
+              padding: EdgeInsets.only(left: 20.w),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.h),
+                    child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 10.dm,
+                            height: 10.dm,
+                            color: Colors.blue,
+                          ),
+                          Text(
+                            "PLN",
+                            style: TextStyle(
+                              fontFamily: "Lato",
+                              fontSize: 14.sp,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 10.dm,
+                          height: 10.dm,
+                          color: Colors.green,
+                        ),
+                        Text(
+                          "RE",
+                          style: TextStyle(
+                            fontFamily: "Lato",
+                            fontSize: 14.sp,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
             SizedBox(
               height: 10.h,
             ),
@@ -269,16 +326,22 @@ class _PenggunaanDayaState extends State<PenggunaanDaya> {
                       bottomLeft: Radius.circular(10.dm),
                       bottomRight: Radius.circular(10.dm)),
                   boxShadow: [
-                    BoxShadow(
+                    const BoxShadow(
                         color: Colors.grey,
                         blurRadius: 0.4,
                         spreadRadius: 0.3,
                         offset: Offset(0, 1.2))
                   ],
                 ),
+                /*
+                  LineChartWidget : tinggal ganti data saat init, : line_widget.arr_data <- ganti value nya
+                  di file LineChartWidget.dart
+                */
                 child: Padding(
                     padding: EdgeInsets.all(20.dm),
-                    child: Container(child: LineChart(avgData())))),
+                    child: Container(
+                      child: line_widget.LineChartWidget(context),
+                    ))),
             SizedBox(
               height: 10.h,
             ),
@@ -418,48 +481,6 @@ class _PenggunaanDayaState extends State<PenggunaanDaya> {
                                     ],
                                   ),
                                 ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 150.h,
-                      width: MediaQuery.of(context).size.width,
-                      child: Padding(
-                        padding: EdgeInsets.all(10.dm),
-                        child: RefreshIndicator(
-                          onRefresh: () =>
-                              Future.sync(() => _pagingController.refresh()),
-                          child: Flexible(
-                            child: PagedListView<int, RiwayatModel>(
-                              pagingController: _pagingController,
-                              shrinkWrap:true,
-                              builderDelegate:
-                                  PagedChildBuilderDelegate<RiwayatModel>(
-                                itemBuilder: (context, item, index) => Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: ListTile(
-                                    leading: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(item.name1.toString()),
-                                            Text(item.value1.toString()),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(item.name2.toString()),
-                                            Text(item.value2.toString()),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    trailing: Text(item.date.toString()),
-                                  ),
-                                ),
                               ),
                             ),
                           ),

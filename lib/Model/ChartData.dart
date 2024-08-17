@@ -1,6 +1,7 @@
 class ChartData {
-  ChartData(this.month, this.sales);
+  ChartData(this.date, this.pln, this.re);
 
-  final String month;
-  final double sales;
+  final String date;
+  final double pln;
+  final double re;
 }
