@@ -4,6 +4,7 @@ import 'package:lucide_icons/lucide_icons.dart';
 import 'package:smartgrid/Partials/Card/CardMode.dart';
 import 'package:smartgrid/Partials/Card/DashboardCard.dart';
 import 'package:smartgrid/View/Cuaca.dart';
+import 'package:smartgrid/View/KontrolDaya.dart';
 import 'package:smartgrid/View/ListEnergy.dart';
 import 'package:smartgrid/View/ListPLN.dart';
 import 'package:smartgrid/View/Pengaturan.dart';
@@ -73,7 +74,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                   ),
                   IconButton(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Pengaturan()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> KontrolDaya()));
                       },
                       icon: Icon(
                         LucideIcons.settings,
